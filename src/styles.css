@@ -1,0 +1,53 @@
+/* Home Slider */
+
+.swiper-button-prev:after, .swiper-button-next:after {
+    font-size: 15px !important;
+    font-weight: 900;
+    background-color: black;
+    padding: 12px 14px;
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  .swiper-button-prev:hover::after, .swiper-button-next:hover::after{
+    background-color: #f7f7f7;
+    color: black;
+  }
+  .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+      margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 4px);
+      background: red;
+  }
+  
+  .swiper-pagination-clickable .swiper-pagination-bullet {
+      cursor: pointer;
+  }
+  
+
+  /* testmonials */
+  
+
+  .testimonial-slider-bg{
+    background-image: url('https://sb.kaleidousercontent.com/67418/1920x1100/2ed9107761/bg.png');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+  }
+
+/* contact bg */
+.contact-bg{
+  background-image: url('https://img.freepik.com/free-photo/vintage-pink-telephone-composition_23-2148913955.jpg');
+  background-size: cover;
+  background-position: center;
+}

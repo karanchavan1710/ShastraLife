@@ -1,27 +1,41 @@
-// store.js
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+
+// Customer reducers
 import productsReducer from '../Slice/ProductSlice';
 import cartReducer from '../Slice/CartSlice';
 import categoryReducer from '../Slice/CategorySlice';
-import favoriteSliceReducer from '../Slice/FavoriteSlice';
+import favoriteReducer from '../Slice/FavoriteSlice';
 import authReducer from '../Slice/AuthSlice';
 import contactReducer from '../Slice/contactFormSlice';
 import orderReducer from '../Slice/OrderSlice';
 import addressReducer from '../Slice/AddressSlice';
-import ViewOrderReducer from '../Slice/ViewOrderSlice';
+import viewOrderReducer from '../Slice/ViewOrderSlice';
 
-const store = configureStore({
-  reducer: {
+// Admin reducers
+import adminProductsReducer from '../../../Admin/Redux/Slices/ProductAdminSlice';
+import userReducer from '../../../Admin/Redux/Slices/userSlice'
+
+
+const rootReducer = combineReducers({
+  customer: combineReducers({
     products: productsReducer,
     cart: cartReducer,
     category: categoryReducer,
-    favorite: favoriteSliceReducer,
-    contact: contactReducer,
-    order: orderReducer, 
-    addresses: addressReducer,
+    favorite: favoriteReducer,
     auth: authReducer,
-    viewOrder: ViewOrderReducer,
-  },
+    contact: contactReducer,
+    order: orderReducer,
+    addresses: addressReducer,
+    viewOrder: viewOrderReducer,
+  }),
+  admin: combineReducers({
+    productsData: adminProductsReducer,
+    userReducer : userReducer
+  }),
+});
+
+const store = configureStore({
+  reducer: rootReducer,
 });
 
 export default store;

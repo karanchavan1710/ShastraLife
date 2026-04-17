@@ -9,7 +9,7 @@ const API_URL = "https://fakestoreapi.com/products";
 
 const ProductCategory = ({ sortOrder, onSortChange }) => {
   const dispatch = useDispatch();
-  const selectedCategory = useSelector((state) => state.category.selectedCategory);
+  const selectedCategory = useSelector((state) => state.customer.category.selectedCategory);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {

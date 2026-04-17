@@ -7,7 +7,7 @@ import { fetchOrders } from "../../Redux/Slice/ViewOrderSlice";
 
 const OrderCard = () => {
   const dispatch = useDispatch();
-  const { orders, loading, error } = useSelector((state) => state.viewOrder);
+  const { orders, loading, error } = useSelector((state) => state.customer.viewOrder);
 
   useEffect(() => {
     dispatch(fetchOrders());

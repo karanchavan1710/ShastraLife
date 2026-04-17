@@ -15,7 +15,9 @@ import React, { useEffect } from "react";
 const CartPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { items } = useSelector((state) => state.cart);
+  const { items } = useSelector((state) => state.customer.cart);
+  const { user } = useSelector((state) => state.customer.auth);
+  
 
   useEffect(() => {
     dispatch(fetchCartFromApi());
@@ -41,12 +43,19 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    if (items.length === 0) {
-      toast.error("Your cart is empty. Please add items before checking out.");
-    } else {
-      navigate('/checkout');
-      console.log("Proceeding to checkout");
-    }
+   { /* if(user !== true){
+toast.error('Please Logged In')
+navigate('/login')
+    }else{
+      if (items.length === 0) {
+        toast.error("Your cart is empty. Please add items before checking out.");
+      } else {
+        navigate('/checkout');
+        console.log("Proceeding to checkout");
+      }
+    } */}
+   
+    navigate('/checkout');  
   };
 
   return (

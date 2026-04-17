@@ -17,7 +17,7 @@ import OrangeButton from "../Common/Buttons/OrangeButton";
 
 const FloatingCartButton = () => {
   const [open, setOpen] = useState(false);
-  const cartItems = useSelector((state) => state.cart.items || []);
+  const cartItems = useSelector((state) => state.customer.cart.items || []);
   const navigate = useNavigate();
 
   const toggleDrawer = (state) => () => {

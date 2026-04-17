@@ -10,8 +10,8 @@ const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [product, setProduct] = useState(null);
-  const products = useSelector((state) => state.products.items);
-  const status = useSelector((state) => state.products.status);
+  const products = useSelector((state) => state.customer.products.items);
+  const status = useSelector((state) => state.customer.products.status);
 
   useEffect(() => {
     if (products.length === 0 && status === "idle") {

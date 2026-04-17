@@ -1,11 +1,14 @@
 import React from "react";
 import NavItem from "./NavItem";
 import { FiHeart, FiShoppingCart, FiUser } from "react-icons/fi";
-import { IconButton } from "@mui/material";
+import { Badge, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MobileMenu = ({ isOpen, navLinks, closeMenu }) => {
-  if (!isOpen) return null;
+
+  const {items} = useSelector((state)=>state.customer.cart)
+   if (!isOpen) return null;
 
   return (
     <div className="md:!hidden !text-sm !px-4 !py-4 uppercase text-start bg-white">
@@ -27,9 +30,9 @@ const MobileMenu = ({ isOpen, navLinks, closeMenu }) => {
             </IconButton>
           </Link>
           <Link to="/cart" onClick={closeMenu}>
-            <IconButton className="!bg-orange-500 hover:!bg-orange-400" title="cart">
-              <FiShoppingCart className="!cursor-pointer !text-xl text-white" />
-            </IconButton>
+          <Badge badgeContent={items.length} variant="standard" color="success">  <IconButton className="!bg-orange-500 hover:!bg-orange-400" title="cart">
+          <FiShoppingCart className="!cursor-pointer !text-xl text-white" />
+        </IconButton></Badge>
           </Link>
           <Link to="/account/profile" onClick={closeMenu}>
             <IconButton className="!bg-orange-500 hover:!bg-orange-400" title="my-account">

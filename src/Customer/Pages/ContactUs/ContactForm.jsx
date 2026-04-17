@@ -27,7 +27,7 @@ import OrangeButton from "../../Components/Common/Buttons/OrangeButton";
   
   const ContactForm = () => {
     const dispatch = useDispatch();
-    const status = useSelector((state) => state.contact.status);
+    const status = useSelector((state) => state.contact);
   
     const initialValues = {
       firstName: "",

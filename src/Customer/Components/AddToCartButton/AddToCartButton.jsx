@@ -8,9 +8,12 @@ import { FaShoppingCart } from "react-icons/fa";
 const AddToCartButton = ({ item }) => {
   const dispatch = useDispatch();
 
-  const { items, status } = useSelector((state) => state.cart);
 
-  const isInCart = items.some((cartItem) => cartItem.productId === item.id);
+  const { items } = useSelector((state) => state.customer.cart);
+  const { token } = useSelector((state) => state.customer.auth);
+  
+  const isInCart = Array.isArray(items) && items.some((cartItem) => cartItem.productId === item.id);
+
 
   const handleAddToCart = async () => {
     if (isInCart) {

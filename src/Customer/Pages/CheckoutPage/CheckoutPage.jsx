@@ -23,8 +23,9 @@ const CheckOutPage = () => {
     phone: "",
   });
 
-  const { items } = useSelector((state) => state.cart);
-  const addresses = useSelector((state) => state.addresses);
+  const { items } = useSelector((state) => state.customer.cart);
+  const addresses = useSelector((state) => state.customer.addresses);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

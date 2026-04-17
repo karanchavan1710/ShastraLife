@@ -5,7 +5,7 @@ import { fetchProducts } from '../../Redux/Slice/ProductSlice'
 
 const OurProducts = () => {
   const dispatch = useDispatch()
-  const { items, status } = useSelector((state) => state.products)
+  const { items, status } = useSelector((state) => state.customer.products)
 
   useEffect(() => {
     if (status === 'idle') {

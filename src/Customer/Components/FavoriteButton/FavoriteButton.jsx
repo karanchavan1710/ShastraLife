@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import React from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 const FavoriteButton = ({ item }) => {
   const dispatch = useDispatch();
-  const favoriteItems = useSelector((state) => state.favorite.favoriteItems);
+  const favoriteItems = useSelector((state) =>state.customer.favorite.favoriteItems);
   const isFavorited = favoriteItems.some((favItem) => favItem.id === item.id);
 
   // Inside a Product/Favorite Card component
@@ -23,12 +23,11 @@ const handleFavoriteClick = () => {
   }
 };
 
-
   return (
    <>
-   <IconButton color="error" onClick={handleFavoriteClick}>
-   {isFavorited ? <IoHeartSharp /> : <IoHeartOutline />}
- </IconButton>
+  <Tooltip title="wishlist"> <IconButton color="error" onClick={handleFavoriteClick} title="wishlist" >
+  {isFavorited ? <IoHeartSharp /> : <IoHeartOutline />}
+</IconButton></Tooltip>
    </>
   );
 };

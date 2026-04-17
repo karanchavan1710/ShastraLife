@@ -9,7 +9,7 @@ const AdminLogin = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // TODO: Add authentication logic here
+
     const isLoggedIn = email === 'karan@gmail.com' && password === 'karan@gmail.com';
     if (isLoggedIn) {
       // Redirect to admin dashboard or dashboard page

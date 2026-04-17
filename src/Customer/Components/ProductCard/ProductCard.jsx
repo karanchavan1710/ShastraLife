@@ -34,7 +34,7 @@ const ProductCard = ({ item }) => {
       <CardContent className="!bg-gray-200 !text-start">
         <Link to={`/products/${item.id}`}>
           <Typography variant="h6" className="!font-bold hover:!underline line-clamp-1">
-            {item.title.length > 28
+            {item.title
               ? `${item.title.slice(0, 20)}...`
               : item.title}
           </Typography>

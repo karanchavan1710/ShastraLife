@@ -9,7 +9,7 @@ import { useEffect } from "react";
 
 const FavoritePage = () => {
   const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.favorite.favoriteItems);
+  const favorites = useSelector((state) => state.customer.favorite.favoriteItems);
 
   useEffect(()=>{
 dispatch(fetchFavoritesFromApi())

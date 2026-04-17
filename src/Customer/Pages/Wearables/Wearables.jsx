@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Wearables = () => {
 const dispatch = useDispatch();
-  const { items, status } = useSelector((state) => state.products);
+  const { items, status } = useSelector((state) => state.customer.products);
 
   useEffect(() => {
     if (status === "idle") {

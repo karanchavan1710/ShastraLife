@@ -6,8 +6,8 @@ import ProductCategory from "../../Components/Categories/ProductCategory";
 
 const ProductList = () => {
   const dispatch = useDispatch();
-  const { items, status } = useSelector((state) => state.products);
-  const selectedCategory = useSelector((state) => state.category.selectedCategory);
+  const { items, status } = useSelector((state) => state.customer.products);
+  const selectedCategory = useSelector((state) => state.customer.category.selectedCategory);
   const [sortOrder, setSortOrder] = useState(""); // <--- New sort state
 
   // Fetch products once when idle or if items are empty

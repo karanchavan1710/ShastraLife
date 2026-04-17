@@ -18,8 +18,8 @@ const OrderDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { orders, loading: orderLoading, error: orderError } = useSelector((state) => state.viewOrder);
-  const { items: products, status: productStatus } = useSelector((state) => state.products);
+  const { orders, loading: orderLoading, error: orderError } = useSelector((state) => state.customer.viewOrder);
+  const { items: products, status: productStatus } = useSelector((state) => state.customer.products);
 
   useEffect(() => {
     if (orders.length === 0) {

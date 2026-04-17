@@ -1,32 +1,52 @@
-import React, { useState } from 'react';
-import { Badge, Box, Button } from '@mui/material';
-import { FiHeart, FiShoppingCart, FiUser, FiMenu, FiX } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+import React, { useState } from "react";
+import { Avatar, Badge, Box, Button } from "@mui/material";
+import { FiHeart, FiShoppingCart, FiUser, FiMenu, FiX } from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import NavItem from './NavItem';
-import NavIcon from './NavIcon';
-import MobileMenu from './MobileMenu';
-import SearchProducts from './SearchProducts';
-import OrangeButton from '../Buttons/OrangeButton'
-import { useSelector } from 'react-redux';
+import NavItem from "./NavItem";
+import NavIcon from "./NavIcon";
+import MobileMenu from "./MobileMenu";
+import SearchProducts from "./SearchProducts";
+import OrangeButton from "../Buttons/OrangeButton";
+import AuthModal from "../../Auth/AuthModal";
+import { logout } from "../../../Redux/Slice/AuthSlice";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Selectors (from customer store)
+  const user = useSelector((state) => state.customer.auth?.user);
+  const favItems = useSelector((state) => state.customer.favorite?.favoriteItems || []);
+  const cartItems = useSelector((state) => state.customer.cart?.items || []);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [isLogin, setIsLogin] = useState(true); // which auth tab to show
 
+  const handleOpenRegister = () => {
+    setIsLogin(false);
+    setOpenAuthModal(true);
+  };
 
-  const FavItem = useSelector((state)=>state.favorite.favoriteItems)
+  const handleCloseAuth = () => {
+    setOpenAuthModal(false);
+  };
 
-  const CartItem = useSelector((state)=>state.cart.items)
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success("Logged out successfully!");
+    navigate("/login");
+  };
 
   const navLinks = [
-    { to: '/', label: 'HOME' },
-    { to: '/products', label: 'PRODUCTS' },
-    { to: '/wearables', label: 'WEARABLES' },
-    { to: '/team', label: 'TEAM' },
-    { to: '/contact', label: 'CONTACT-US' },
+    { to: "/", label: "HOME" },
+    { to: "/products", label: "PRODUCTS" },
+    { to: "/wearables", label: "WEARABLES" },
+    { to: "/team", label: "TEAM" },
+    { to: "/contact", label: "CONTACT-US" },
   ];
 
   return (
@@ -34,32 +54,25 @@ const Navbar = () => {
       {/* Top Strip */}
       <div className="!bg-amber-900 !text-white !text-sm !px-4 !py-3">
         <div className="!flex !justify-between !items-center !max-w-7xl !mx-auto !text-lg">
-         <div className="!flex !items-center !space-x-4">
-         <div className="!gap-4 flex">
-         <span>🚚 Fast Delivery</span>
-         <span className='!hidden sm:!block'>📦 Free Shipping</span>
-       </div>
-         </div>
-          <div className="!gap-6 !flex !items-center !justify-between ">
-            {!isAuthenticated ? (
-              <OrangeButton
-                onClick={() => loginWithRedirect()}
-                className="!hover:underline !text-white"
-              >
-                Login
-              </OrangeButton>
-            ) : (
+          <div className="!gap-4 flex">
+            <span>🚚 Fast Delivery</span>
+            <span className="!hidden sm:!block">📦 Free Shipping</span>
+          </div>
+          <div className="!gap-6 !flex !items-center">
+            {user ? (
               <>
-                <span className="!text-white">Hi, {user.name.split(' ')[0]}</span>
-                <OrangeButton
-                  onClick={() =>
-                    logout({ logoutParams: { returnTo: window.location.origin } })
-                  }
-                  className="!hover:underline !text-white"
-                >
+                <span className="!text-white">{"Welcome, " + user.firstName}</span>
+                <Avatar
+                  src={user.profilePic || ""}
+                  alt={user.firstName || "U"}
+                  className="!w-8 !h-8 !rounded-full"
+                />
+                <Button color="inherit" onClick={handleLogout}>
                   Logout
-                </OrangeButton>
+                </Button>
               </>
+            ) : (
+              <OrangeButton onClick={handleOpenRegister}>Register</OrangeButton>
             )}
           </div>
         </div>
@@ -68,24 +81,19 @@ const Navbar = () => {
       {/* Main Navbar */}
       <div className="!bg-white !px-4 !py-3">
         <div className="!flex !justify-between !items-center !max-w-7xl !mx-auto !w-full">
-          {/* Logo */}
           <Link to="/" className="!text-2xl !font-bold !text-orange-600">
             Shastra Life
           </Link>
-
-          {/* Search Bar */}
           <div className="!flex-1 !px-4 !max-w-xl">
             <SearchProducts />
           </div>
-
-          {/* Icons + Hamburger */}
           <div className="!flex !items-center !gap-4">
             <div className="!hidden md:!flex !gap-4 !text-gray-600 !text-xl">
-            <Badge badgeContent={FavItem.length} color='error'>
-              <NavIcon IconComponent={FiHeart} to="/favourite" title="Wishlist" />
-            </Badge>
-              <Badge badgeContent={CartItem.length} color='secondary'>
-              <NavIcon IconComponent={FiShoppingCart} to="/cart" title="Cart" />
+              <Badge badgeContent={favItems.length} color="error">
+                <NavIcon IconComponent={FiHeart} to="/favourite" title="Wishlist" />
+              </Badge>
+              <Badge badgeContent={cartItems.length} color="secondary">
+                <NavIcon IconComponent={FiShoppingCart} to="/cart" title="Cart" />
               </Badge>
               <NavIcon IconComponent={FiUser} to="/account/profile" title="Account" />
             </div>
@@ -99,7 +107,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Bottom Nav (Desktop) */}
+      {/* Bottom Nav */}
       <div className="!text-sm !hidden md:!block !bg-white">
         <div className="!flex !justify-center !gap-6 !py-3 !max-w-7xl !mx-auto !uppercase">
           {navLinks.map((link) => (
@@ -113,6 +121,13 @@ const Navbar = () => {
         isOpen={mobileMenuOpen}
         navLinks={navLinks}
         closeMenu={() => setMobileMenuOpen(false)}
+      />
+
+      {/* Auth Modal */}
+      <AuthModal
+        open={openAuthModal}
+        handleClose={handleCloseAuth}
+        isLogin={isLogin}
       />
     </Box>
   );

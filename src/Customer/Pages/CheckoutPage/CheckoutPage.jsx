@@ -7,8 +7,8 @@ import PricingCard from "../Cart/PricingCard";
 import { v4 as uuidv4 } from "uuid";
 import OrangeButton from "../../Components/Common/Buttons/OrangeButton";
 import { useDispatch, useSelector } from "react-redux";
-import { placeOrderApi } from "../../Redux/Slice/orderSlice";
-import { add } from "../../Redux/Slice/addressSlice"; 
+import { placeOrderApi } from "../../Redux/Slice/OrderSlice";
+import { add } from "../../Redux/Slice/AddressSlice"; 
 import { useNavigate } from "react-router-dom";
 
 const CheckOutPage = () => {

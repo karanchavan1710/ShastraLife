@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import OrangeButton from "../../Components/Common/Buttons/OrangeButton";
 import { useDispatch, useSelector } from "react-redux";
 import { placeOrderApi } from "../../Redux/Slice/orderSlice";
-import { add } from "../../Redux/Slice/addressSlice"; // <-- Import actions
+import { add } from "../../Redux/Slice/addressSlice"; 
 import { useNavigate } from "react-router-dom";
 
 const CheckOutPage = () => {
